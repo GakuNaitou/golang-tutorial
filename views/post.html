@@ -1,0 +1,20 @@
+{{define "post"}}
+<h1>投稿一覧</h1>
+{{ range . }}
+<p>{{ .UID }}</p>
+<p>{{ .Content }}</p>
+<a href="/posts/{{.ID}}">詳細</a>
+<a href="/posts/{{.ID}}/edit">編集</a>
+<form action="/posts/delete/{{.ID}}" method="post">
+  <input type="submit" value="削除">
+</form>
+<hr>
+{{ end }}
+<form action="/posts" method="post">
+  <label>内容</label>
+  <input type="text" name="content">
+  <input type="submit" value="作成">
+</form>
+<a href="/user">ユーザー情報編集</a>
+<a href="/logout">ログアウト</a>
+{{end}}

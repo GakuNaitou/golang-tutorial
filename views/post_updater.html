@@ -1,0 +1,16 @@
+{{define "post_updater"}}
+<h1>投稿編集</h1>
+<hr>
+<h2>編集前</h2>
+<p>{{ .Content }}</p>
+<hr>
+<form action="/posts/{{.ID}}/edit" method="post">
+  <input type="text" name="content">
+  <input type="submit" value="完了">
+</form>
+{{ if eq .ParentID 0 }}
+<a href="/posts/{{.ID}}">投稿詳細に戻る</a>
+{{ else }}
+<a href="/posts/{{.ParentID}}">投稿詳細に戻る</a>
+{{ end }}
+{{end}}

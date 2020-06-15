@@ -1,0 +1,11 @@
+{{define "signup"}}
+<h1>登録画面</h1>
+<form action="/signup" method="post">
+  <label>名前</label>
+  <input type="text" name="name">
+  <label>eMail</label>
+  <input type="text" name="email">
+  <input type="submit" value="登録する">
+</form>
+<a href="/login">ログイン画面に戻る</a>
+{{end}}

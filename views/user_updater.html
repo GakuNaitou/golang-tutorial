@@ -1,0 +1,16 @@
+{{define "user_updater"}}
+<h1>ユーザー情報編集</h1>
+<hr>
+<h2>編集前</h2>
+<p>name: {{ .Name }}</p>
+<p>email: {{ .EMail }}</p>
+<hr>
+<form action="/user" method="post">
+  <label>name</label>
+  <input type="text" name="name">
+  <label>email</label>
+  <input type="text" name="email">
+  <input type="submit" value="完了">
+</form>
+<a href="/posts">投稿一覧に戻る</a>>
+{{end}}

@@ -1,0 +1,28 @@
+version: '3'
+services:
+  app:
+    build: .  # Dockerfileのあるディレクトリのパスを指定する。appはDockerfileの内容をbuildして作成される
+    container_name: go_app  # 自由に決められる
+    tty: true
+    volumes:
+      - ./:/go # dockerコンテナ上の変更をローカルのmacに保存
+    ports:
+      - 1323:1323 # 開放するポート
+    depends_on: # dbコンテナに接続する ビルドするのもdbコンテナが立ち上がってからになる
+      - db
+  db:
+    image: mysql:8.0.2 # mysql のdockerイメージを取ってくる
+    container_name: go_db # 自由に決められる
+    volumes:
+      - ./mysql_data:/var/lib/mysql # データ永続化のためのボリューム
+      - ./sqls/init:/docker-entrypoint-initdb.d # 初期化SQL文実行のためのボリューム
+      - ./db/mysql_conf/:/etc/mysql/conf.d # 接続設定とか
+    ports:
+      - 3306:3306 # 開放するポート
+    environment:
+      MYSQL_ROOT_PASSWORD: docker_pwd # sqlのrootユーザーでログインする時のパスワード
+      MYSQL_DATABASE: docker_db # sqlで初回起動時に作成されるデータベース名
+      MYSQL_USER: docker_user # sqlで初回起動時に作成されるユーザー名
+      MYSQL_PASSWORD: docker_user_pwd # sqlで初回起動時に作成されるユーザーのパスワード
+volumes:
+  mysql_data: # ローカルのディレクトリにデータを保存
