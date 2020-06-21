@@ -2,7 +2,7 @@ package model
 
 import (
     "github.com/jinzhu/gorm"
-    _ "github.com/go-sql-driver/mysql"
+		_ "github.com/go-sql-driver/mysql"
 )
 
 var db *gorm.DB
