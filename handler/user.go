@@ -33,7 +33,7 @@ func UpdateUser(c echo.Context) error {
         }
     }
 
-    if u := model.FindUser(&model.User{EMail: user.EMail}); u.ID != 0 {
+    if u := model.FindUser(&model.User{EMail: user.EMail}); u.ID != 0 && u.ID != user.ID {
         return &echo.HTTPError{
             Code:    http.StatusConflict,
             Message: "そのメールアドレスは既に利用されています。",

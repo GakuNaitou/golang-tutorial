@@ -1,7 +1,7 @@
 {{define "post_detail"}}
 <h1>投稿詳細</h1>
 <hr>
-<h2>元投稿</h2>
+<h2>投稿</h2>
 <p>投稿者: {{ .ParentPost.UserName }}</p>
 <p>{{ .ParentPost.Post.Content }}</p>
 <a href="/posts/{{.ParentPost.Post.ID}}">詳細</a>
@@ -10,7 +10,7 @@
   <input type="submit" value="削除">
 </form>
 <hr>
-<h2>子投稿</h2>
+<h2>スレッド</h2>
 <hr>
 {{ range .ChildPosts }}
 <p>投稿者: {{ .UserName }}</p>

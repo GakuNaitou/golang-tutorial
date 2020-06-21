@@ -42,7 +42,6 @@ func GetPostDetails(c echo.Context) error {
     
     parent_post :=  model.FindPosts(&model.Post{ID: parent_id})
     parent_user := model.FindUser(&model.User{ID: parent_post[0].UID})
-    // var parent_post_data []model.PostAndUserName
     
     parent_post_data := model.PostAndUserName{
         parent_post[0],

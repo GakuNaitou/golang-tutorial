@@ -30,10 +30,13 @@ func FindUser(u *User) User {
 
 func UpdateUser(t *User) error {
     db = DBConnect()
-    rows := db.Model(t).Update(map[string]interface{}{
-        "name": t.Name,
-        "e_mail": t.EMail,
+
+    
+    rows := db.Model(t).Update(User{
+        Name: t.Name,
+        EMail: t.EMail,
     }).RowsAffected
+
     if rows == 0 {
         return fmt.Errorf("Could not find Post (%v) to update", t)
     }

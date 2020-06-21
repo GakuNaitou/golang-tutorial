@@ -7,12 +7,14 @@
 <hr>
 <form action="/user" method="post">
   <label>name</label>
-  <input type="text" name="name">
+  <input type="text" name="name" value="{{.Name}}">
   <label>email</label>
-  <input type="text" name="email">
-  <input type="submit" value="完了">
+  <input type="text" name="email" value="{{.EMail}}">
+  <input type="submit" value="更新">
 </form>
 <a href="/posts">投稿一覧に戻る</a>
+<br>
+<br>
 <form action="/user/delete" method="post">
   <input type="submit" value="アカウントを削除する">
 </form>

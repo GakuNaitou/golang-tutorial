@@ -35,14 +35,14 @@ func CreatePost(post *Post) {
 func FindPosts(t *Post) Posts {
     db = DBConnect()
     var posts Posts
-    db.Where(t).Find(&posts)
+    db.Order("created_at desc").Where(t).Find(&posts)
     return posts
 }
 
 func GetParentPosts() Posts {
     db = DBConnect()
     var parentPosts Posts
-    db.Where("parent_id = ?", 0).Find(&parentPosts)
+    db.Order("created_at desc").Where("parent_id = ?", 0).Find(&parentPosts)
     return parentPosts
 }
 
