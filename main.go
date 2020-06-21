@@ -4,8 +4,6 @@ import (
 	"io"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
-	"net/http"
-	"github.com/jinzhu/gorm"
 	_ "github.com/go-sql-driver/mysql"
 	"./models" // DBの定義と処理
 	"./handler" // アプリケーションサーバーの処理
@@ -29,6 +27,9 @@ func main() {
 
 // routing
 func newRouter() *echo.Echo {
+
+	// views/以下のhtmlファイルをtemplateとして使用できるように定義する
+	// https://echo.labstack.com/guide/templates
 	t := &Template{
 		templates: template.Must(template.ParseGlob("views/*.html")),
 	}
@@ -36,18 +37,22 @@ func newRouter() *echo.Echo {
 	e := echo.New()
 	e.Renderer = t
 
+	// リクエスト単位のログを、起動したhttpサーバー上に出力する
 	e.Use(middleware.Logger())
 
-	e.GET("/login", Login)
-	e.GET("/signup", UserRegister)
+	// 認証周り
+	e.GET("/login", handler.LoginPage)
+	e.GET("/signup", handler.UserRegister)
 	e.POST("/signup", handler.Signup)
 	e.POST("/login", handler.Login)
+	e.GET("/logout", handler.Logout) 
+	e.POST("/user/delete", handler.DeleteAccount) 
 
+	// ユーザー周り
 	e.GET("/user", handler.UserUpdater) 
 	e.POST("/user", handler.UpdateUser)
-	e.POST("/user/delete", handler.DeleteUser) 
-	e.GET("/logout", handler.Logout) 
 
+	// 投稿周り
 	e.GET("/posts", handler.GetPosts)
 	e.POST("posts", handler.CreatePost) 
 	e.GET("posts/:parent_id", handler.GetPostDetails)
@@ -57,29 +62,4 @@ func newRouter() *echo.Echo {
 	e.POST("/posts/:id/edit", handler.UpdatePost) 
 	
 	return e
-}
-
-func Login(c echo.Context) error {
-	db := DBConnect()
-	return c.Render(http.StatusOK, "login", db)
-}
-
-func UserRegister(c echo.Context) error {
-	db := DBConnect()
-	return c.Render(http.StatusOK, "signup", db)
-}
-
-// DB接続
-func DBConnect() *gorm.DB {
-	DBMS := "mysql"
-	USER := "docker_user"
-	PASS := "docker_user_pwd"
-	PROTOCOL := "tcp(db:3306)"
-	DBNAME := "docker_db"
-	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME + "?charset=utf8&parseTime=True"
-	db, err := gorm.Open(DBMS, CONNECT)
-	if err != nil {
-			panic(err.Error())
-	}
-	return db
 }

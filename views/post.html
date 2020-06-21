@@ -3,7 +3,7 @@
 {{ range . }}
 <p>{{ .UID }}</p>
 <p>{{ .Content }}</p>
-<a href="/posts/{{.ID}}">詳細</a>
+<a href="/posts/{{.ID}}">スレッド</a>
 <a href="/posts/{{.ID}}/edit">編集</a>
 <form action="/posts/delete/{{.ID}}" method="post">
   <input type="submit" value="削除">

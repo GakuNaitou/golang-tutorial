@@ -15,14 +15,14 @@ services:
     container_name: go_db # 自由に決められる
     volumes:
       - ./mysql_data:/var/lib/mysql # データ永続化のためのボリューム
-      - ./sqls/init:/docker-entrypoint-initdb.d # 初期化SQL文実行のためのボリューム
-      - ./db/mysql_conf/:/etc/mysql/conf.d # 接続設定とか
+      # - ./sqls/init:/docker-entrypoint-initdb.d # 初期化SQL文実行のためのボリューム(未使用)
+      # - ./db/mysql_conf/:/etc/mysql/conf.d # 接続設定とか(未使用)
     ports:
       - 3306:3306 # 開放するポート
     environment:
-      MYSQL_ROOT_PASSWORD: docker_pwd # sqlのrootユーザーでログインする時のパスワード
-      MYSQL_DATABASE: docker_db # sqlで初回起動時に作成されるデータベース名
-      MYSQL_USER: docker_user # sqlで初回起動時に作成されるユーザー名
-      MYSQL_PASSWORD: docker_user_pwd # sqlで初回起動時に作成されるユーザーのパスワード
+      MYSQL_ROOT_PASSWORD: root_pwd # sqlのrootユーザーでログインする時のパスワード
+      MYSQL_DATABASE: tutorial_db # sqlで初回起動時に作成されるデータベース名
+      MYSQL_USER: db_user # sqlで初回起動時に作成されるユーザー名
+      MYSQL_PASSWORD: db_user_pwd # sqlで初回起動時に作成されるユーザーのパスワード
 volumes:
   mysql_data: # ローカルのディレクトリにデータを保存

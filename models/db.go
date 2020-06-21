@@ -11,16 +11,17 @@ func InitDB() {
 	db := DBConnect()
 	defer db.Close()
 
+	// マイグレート
 	db.AutoMigrate(&User{})
 	db.AutoMigrate(&Post{})
 }
 
 func DBConnect() *gorm.DB {
 	DBMS := "mysql"
-	USER := "docker_user"
-	PASS := "docker_user_pwd"
+	USER := "db_user"
+	PASS := "db_user_pwd"
 	PROTOCOL := "tcp(db:3306)"
-	DBNAME := "docker_db"
+	DBNAME := "tutorial_db"
 	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME + "?charset=utf8&parseTime=True"
 	db, err := gorm.Open(DBMS, CONNECT)
 	if err != nil {
