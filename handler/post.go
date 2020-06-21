@@ -5,12 +5,24 @@ import (
     "strconv"
     "github.com/labstack/echo"
     "../models"
+    // "fmt"
 )
 
 // 投稿一覧画面を返す
 func GetPosts(c echo.Context) error {
     posts := model.GetParentPosts()
-    return c.Render(http.StatusOK, "post", posts)
+    var post_data []model.PostAndUserName
+
+    for _, post := range posts {
+        user := model.FindUser(&model.User{ID: post.UID})
+        post_and_user_name := model.PostAndUserName{
+            post,
+            user.Name,
+        }
+        post_data = append(post_data, post_and_user_name)
+    }
+
+    return c.Render(http.StatusOK, "post", post_data)
 }
 
 // 投稿詳細画面を返す
@@ -27,11 +39,32 @@ func GetPostDetails(c echo.Context) error {
             Message: "処理に失敗しました",
         }
     }
+    
     parent_post :=  model.FindPosts(&model.Post{ID: parent_id})
+    parent_user := model.FindUser(&model.User{ID: parent_post[0].UID})
+    // var parent_post_data []model.PostAndUserName
+    
+    parent_post_data := model.PostAndUserName{
+        parent_post[0],
+        parent_user.Name,
+    }
+
     child_posts := model.FindPosts(&model.Post{ParentID: parent_id})
+    var child_post_data []model.PostAndUserName
+
+    for _, post := range child_posts {
+        user := model.FindUser(&model.User{ID: post.UID})
+        post_and_user_name := model.PostAndUserName{
+            post,
+            user.Name,
+        }
+        child_post_data = append(child_post_data, post_and_user_name)
+    }
+
+    
     posts := model.ParentAndChildren{
-        parent_post,
-        child_posts,
+        parent_post_data,
+        child_post_data,
     }
 
     return c.Render(http.StatusOK, "post_detail", posts)

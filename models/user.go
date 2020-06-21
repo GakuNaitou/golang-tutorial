@@ -9,6 +9,7 @@ type User struct {
     ID       int   `json:"id" gorm:"praimaly_key"`
     Name     string `json:"name"`
     EMail string `json:"e_mail"`
+    Posts []Post
     CreatedAt time.Time
     UpdatedAt time.Time
     DeletedAt *time.Time

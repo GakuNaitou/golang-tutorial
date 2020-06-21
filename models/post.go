@@ -18,8 +18,13 @@ type Post struct {
 type Posts []Post
 
 type ParentAndChildren struct {
-    ParentPost Posts
-    ChildPosts Posts
+    ParentPost PostAndUserName
+    ChildPosts []PostAndUserName
+}
+
+type PostAndUserName struct {
+    Post Post
+    UserName string
 }
 
 func CreatePost(post *Post) {

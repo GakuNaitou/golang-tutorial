@@ -1,11 +1,11 @@
 {{define "post"}}
 <h1>投稿一覧</h1>
 {{ range . }}
-<p>{{ .UID }}</p>
-<p>{{ .Content }}</p>
-<a href="/posts/{{.ID}}">スレッド</a>
-<a href="/posts/{{.ID}}/edit">編集</a>
-<form action="/posts/delete/{{.ID}}" method="post">
+<p>投稿者: {{ .UserName }}</p>
+<p>{{ .Post.Content }}</p>
+<a href="/posts/{{.Post.ID}}">スレッド</a>
+<a href="/posts/{{.Post.ID}}/edit">編集</a>
+<form action="/posts/delete/{{.Post.ID}}" method="post">
   <input type="submit" value="削除">
 </form>
 <hr>
