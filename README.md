@@ -1,16 +1,16 @@
 # ページ
 
 ### 登録周り
-/login
-/signup
+- /login
+- /signup
 
 ### 投稿周り
-/posts
-/posts/:id
-/posts/:id/edit
+- /posts
+- /posts/:id
+- /posts/:id/edit
 
 ### ユーザー情報
-/user
+- /user
 
 # 機能
 ### 認証周り
