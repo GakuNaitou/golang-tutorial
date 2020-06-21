@@ -8,7 +8,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/go-sql-driver/mysql"
 	"./models" // DBの定義と処理
-	"./handler"
+	"./handler" // アプリケーションサーバーの処理
 )
 
 type Template struct {
@@ -20,6 +20,7 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 }
 
 func main() {
+	// TODO: カラム名の変更、削除をできるようにする
 	model.InitDB() // DBの初期化処理(マイグレーション実行)
 
 	router := newRouter()
@@ -43,7 +44,8 @@ func newRouter() *echo.Echo {
 	e.POST("/login", handler.Login)
 
 	e.GET("/user", handler.UserUpdater) 
-	e.POST("/user", handler.UpdateUser) 
+	e.POST("/user", handler.UpdateUser)
+	e.POST("/user/delete", handler.DeleteUser) 
 	e.GET("/logout", handler.Logout) 
 
 	e.GET("/posts", handler.GetPosts)

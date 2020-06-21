@@ -27,9 +27,9 @@ func FindPosts(t *Post) Posts {
 }
 
 func GetParentPosts() Posts {
-    var posts Posts
-    db.Where("parent_id = ?", 0).Find(&posts)
-    return posts
+    var parentPosts Posts
+    db.Where("parent_id = ?", 0).Find(&parentPosts)
+    return parentPosts
 }
 
 func DeletePost(t *Post) error {

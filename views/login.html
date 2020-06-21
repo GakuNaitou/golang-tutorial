@@ -1,14 +1,7 @@
 {{define "login"}}
 <head>
   <meta charset="utf-8">
-  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-  <!-- <script type="text/javascript">
-      if(localStorage.getItem('token') !== null) {
-          location.href = '/posts'
-      }
-  </script> -->
-  <title>login - Simple Todo</title>
-  <!-- <script type="text/javascript" src="/assets/js/login.js"></script> -->
+  <title>login - Simple Talk</title>
 </head>
 <body>
   <h1>ログイン画面</h1>
@@ -21,40 +14,5 @@
   </form>
   <a href="/signup">登録する</a>
   <a href="/posts">投稿一覧</a>
-  <!-- <script>
-    console.log('hog');
-    function login(){
-      const url = '/login'
-      const method = 'POST'
-      const headers = {
-          'Content-Type': 'application/json; charset=UTF-8'
-      }
-
-
-
-      const body = JSON.stringify({
-      name: 'gaku0211', // 仮
-      password: 'password',　// 仮
-      })
-
-      fetch(url, {method, headers, body}).then(response => {
-          if(response.ok) {
-              console.log('hoge');
-              return response.json()
-          } else {
-              alert('Faild to login. Please retry')
-              return {token: ''}
-          }
-      }).then(json => {
-          console.log('入った！！');
-          const token = json.token
-          console.log(token);
-          if(token.length > 0) {
-              localStorage.setItem('token', token)
-              location.href = '/posts'
-          }
-      })
-    }
-  </script> -->
 </body>
 {{end}}

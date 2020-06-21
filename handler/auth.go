@@ -49,15 +49,21 @@ func Login(c echo.Context) error {
     userID := strconv.Itoa(user.ID)
 
     cookie := &http.Cookie{
-        Name: "uid", // ここにcookieの名前を記述
-        Value: userID, // ここにcookieの値を記述
-        MaxAge: 1800,
+        Name: "uid", // cookieの名前
+        Value: userID, // cookieの値
+        MaxAge: 1800, // 有効期限(s)
     }
 
     w := c.Response()
     http.SetCookie(w, cookie)
 
     return c.Redirect(http.StatusFound, "/posts")
+}
+
+func getUser(c echo.Context) model.User {
+    uid := getUID(c)
+    user := model.FindUser(&model.User{ID: uid})
+    return user
 }
 
 func getUID(c echo.Context) int {

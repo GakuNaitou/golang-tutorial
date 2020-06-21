@@ -30,3 +30,10 @@ func UpdateUser(t *User) error {
     }
     return nil
 }
+
+func DeleteUser(t *User) error {
+    if rows := db.Where(t).Delete(&User{}).RowsAffected; rows == 0 {
+        return fmt.Errorf("Could not find Post (%v) to delete", t)
+    }
+    return nil
+}
